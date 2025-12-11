@@ -74,7 +74,7 @@ function Signup() {
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form onSubmit={handleSubmit} className="space-y-5 font-sans">
 
                         {/* Email Input */}
                         <div>

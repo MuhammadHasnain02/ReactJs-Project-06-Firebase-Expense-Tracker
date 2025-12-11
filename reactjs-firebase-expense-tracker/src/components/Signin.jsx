@@ -71,7 +71,7 @@ function Signin() {
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4 font-sans">
 
                         {/* Email Input */}
                         <div>

@@ -11,9 +11,6 @@ const Footer = () => {
                     {/* Column 1: Brand & Description */}
                     <div className="space-y-4">
                         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                             <span className="p-1 bg-indigo-200 rounded-full">
-                                <img src="./public/logo.png" alt="" className='w-11 h-11' />
-                             </span>
                             Expense<span className="text-indigo-500">Tracker</span>
                         </h2>
                         <p className="text-sm text-gray-400 max-w-xs leading-relaxed">

@@ -8,23 +8,25 @@ import {
 
 import { db } from '../firebase/config';
 import Footer from "../components/Footer"
+import TransactionDetailModal from "../components/TransactionDetailModal"
 
 <style>
-{`
-    .dropdown-item {
-        @apply w-full flex items-center gap-3 text-left px-4 py-2.5 
-               hover:bg-gray-100 text-gray-700 transition cursor-pointer;
-    }
-    .dropdown-item i {
-        @apply text-lg;
-    }
-`}
+    {`
+        .dropdown-item {
+            @apply w-full flex items-center gap-3 text-left px-4 py-2.5 
+                hover:bg-gray-100 text-gray-700 transition cursor-pointer;
+        }
+        .dropdown-item i {
+            @apply text-lg;
+        }
+    `}
 </style>
 
 function Dashboard() {
     const navigation = useNavigate();
     const { currentUser, logout } = useAuth();
 
+    const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [transactions, setTransactions] = useState([]);
     const [newDescription, setNewDescription] = useState("");
     const [newAmount, setNewAmount] = useState("");
@@ -141,14 +143,14 @@ function Dashboard() {
         navigation('/');
     }
 
-    const formatCurrency = (v) => `Rs.${Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+    const formatCurrency = (v) => `Rs. ${Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 
     return (
         <div className="min-h-screen flex flex-col bg-gray-50">
 
             {/* ------------------ HEADER ------------------ */}
             <nav className="flex justify-between items-center bg-white w-full shadow-lg px-4 sm:px-8 py-3 border-b border-gray-100 sticky top-0 z-10">
-
+                
                 {/* Logo */}
                 <div className="flex items-center space-x-2 cursor-pointer" 
                     onClick={() => navigation('/')}>
@@ -168,7 +170,7 @@ function Dashboard() {
                 <div className="relative flex flex-row justify-center items-center gap-6" ref={dropdownRef}>
 
                     {/* ==== Welcome User ==== */}
-                    <p className="hidden md:block text-gray-800 font-medium">
+                    <p className="hidden md:block text-sm text-gray-800 font-medium tracking-tight">
                         WELCOME, {currentUser.email.toUpperCase().split("@")[0]}
                     </p>
 
@@ -185,7 +187,7 @@ function Dashboard() {
                         <i className="ri-account-circle-fill text-[32px] text-indigo-700"></i>
 
                         {/* User Name */}
-                        <p className="hidden md:block text-gray-800 font-medium truncate max-w-[120px]">
+                        <p className="hidden md:block font-sans text-sm text-gray-800 font-medium truncate max-w-[120px]">
                             {currentUser.email.split("@")[0]}
                         </p>
                     </div>
@@ -236,12 +238,10 @@ function Dashboard() {
                     </div>
 
                 </div>
-
+                
             </nav>
 
-            {/* flex-grow */}
-
-            <main className=" max-w-7xl mx-auto w-full space-y-8 p-4 sm:px-6 sm:py-6 lg:px-8 lg:py-10 lg:pb-14">
+            <main className=" max-w-7xl mx-auto w-full space-y-10 p-4 sm:px-6 sm:py-6 lg:px-8 lg:py-10 lg:pb-14">
 
                 {/* ------------------ SUMMARY CARDS (INLINE UI) ------------------ */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -252,7 +252,7 @@ function Dashboard() {
                             <i className="ri-arrow-up-circle-line text-2xl text-green-600"></i>
                         </div>
                         <div>
-                            <p className="text-gray-700 font-semibold">Total Income</p>
+                            <p className="text-gray-700 font-semibold font-sans">Total Income</p>
                             <h3 className="text-[26px] font-bold mt-0.5 text-green-700">
                                 <span className='pr-1'>Rs.</span>
                                 {Math.abs(summary.income).toLocaleString('en-US', { minimumFractionDigits: 2 })}
@@ -266,7 +266,7 @@ function Dashboard() {
                             <i className="ri-arrow-down-circle-line text-2xl text-red-600"></i>
                         </div>
                         <div>
-                            <p className="text-gray-700 font-semibold">Total Expense</p>
+                            <p className="text-gray-700 font-semibold font-sans">Total Expense</p>
                             <h3 className="text-[26px] font-bold mt-0.5 text-red-700">
                                 <span className='pr-1'>Rs.</span>
                                 {Math.abs(summary.expense).toLocaleString('en-US', { minimumFractionDigits: 2 })}
@@ -280,7 +280,7 @@ function Dashboard() {
                             <i className="ri-wallet-3-line text-2xl text-indigo-600"></i>
                         </div>
                         <div>
-                            <p className="text-gray-700 font-semibold">Net Balance</p>
+                            <p className="text-gray-700 font-semibold font-sans">Net Balance</p>
                             <h3 className="text-[26px] font-bold mt-0.5 text-indigo-700">
                                 <span className='pr-1'>Rs.</span>
                                 {Math.abs(summary.balance).toLocaleString('en-US', { minimumFractionDigits: 2 })}
@@ -291,7 +291,7 @@ function Dashboard() {
                 </div>
 
                 {/* ---------- FORM + HISTORY (2 COLUMNS) ---------- */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                     {/* -------- FORM (LEFT SIDE) -------- */}
                     <div className="h-100 bg-white border border-gray-200 rounded-xl shadow-xl p-6 sm:p-8">
@@ -345,7 +345,7 @@ function Dashboard() {
                         </div>
 
                         {/* INLINE INPUTS */}
-                        <div className="flex flex-col gap-5">
+                        <div className="flex flex-col gap-5 font-sans">
 
                             <input 
                                 type="number"
@@ -379,9 +379,9 @@ function Dashboard() {
 
                     {/* -------- HISTORY (RIGHT SIDE) -------- */}
                     <div className="flex flex-col bg-white border border-gray-200 rounded-xl shadow-xl h-full">
-                        
+
                         {/* Header Section */}
-                        <div className="sticky top-0 p-6 border-b border-gray-200 flex justify-between items-center bg-white rounded-t-xl z-10">
+                        <div className="sticky top-0 p-6 border-b border-gray-200 flex justify-between items-center bg-white rounded-t-xl">
 
                             <h3 className="text-xl font-bold text-gray-800 flex items-center gap-3">
                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-sm transition-all duration-300 bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400`}>
@@ -390,14 +390,14 @@ function Dashboard() {
                                 History
                             </h3>
                             {/* Optional: Add a transaction count badge */}
-                            <span className="bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-900/20 dark:text-indigo-300 dark:border-indigo-800 uppercase font-semibold text-[13px] py-2 px-4 rounded-full">
-                                {transactions.length} Records
-                            </span>
+                            <p className="bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-900/20 dark:text-indigo-300 dark:border-indigo-800 uppercase font-semibold text-[13px] py-2 px-4 rounded-full">
+                                <span className='text-[15px] font-extrabold'>{transactions.length}</span> Records
+                            </p>
 
                         </div>
 
                         {/* Scrollable List Section */}
-                        <div className="p-4 sm:p-6 overflow-y-auto max-h-[600px] custom-scrollbar">
+                        <div className="p-4 sm:p-6 lg:py-7 overflow-y-auto max-h-[400px] custom-scrollbar">
 
                             {transactions.length > 0 ? (
                             <div className="space-y-4">
@@ -409,7 +409,8 @@ function Dashboard() {
                                         : new Date(t.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
                                     return (
-                                        <div key={t.id} className="group flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-xl hover:bg-white hover:shadow-md transition-all duration-300">
+                                        <div key={t.id}
+                                            className="group flex items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-xl hover:bg-[#f8f9f6] hover:shadow-md cursor-pointer transition-all duration-300">
                                             
                                             {/* Left Side: Icon & Details */}
                                             <div className="flex items-center gap-4 overflow-hidden">
@@ -420,12 +421,14 @@ function Dashboard() {
                                                     <i className={`fa-solid ${t.type === "income" ? "fa-arrow-up" : "fa-arrow-down"} text-lg`}></i>
                                                 </div>
 
-                                                <div className="min-w-0">
+                                                <div className="min-w-0 space-y-1.5">
 
-                                                    <p className="font-bold text-gray-800 truncate text-base">{t.description}</p>
+                                                    <div>
+                                                        <p className="font-bold text-[17px] text-gray-600 truncate text-base">{t.description}</p>
+                                                    </div>
                                                     <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
 
-                                                        <span className="capitalize bg-gray-200 px-1.5 py-0.5 rounded text-[10px] font-medium tracking-wide">
+                                                        <span className="capitalize bg-gray-200 px-2 py-1 rounded text-[11px] font-medium">
                                                             {t.type}
                                                         </span>
                                                         <span className="flex items-center gap-1">
@@ -443,25 +446,33 @@ function Dashboard() {
                                                 <p className={`text-lg font-bold tracking-tight ${
                                                     t.type === "income" ? "text-green-600" : "text-red-600"
                                                 }`}>
-                                                    {t.type === "income" ? "+" : "-"}{formatCurrency(t.amount)}
+                                                    {t.type === "income" ? "+ " : "- "}{formatCurrency(t.amount)}
                                                 </p>
 
                                                 {/* Action Buttons (Visible on Hover or always on mobile) */}
-                                                <div className="flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
+                                                <div className="flex items-center gap-1">
                                                     <button 
                                                         onClick={() => editTransaction(t)} 
-                                                        className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                                                        className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors cursor-pointer"
                                                         title="Edit"
                                                     >
                                                         <i className="fa-solid fa-pen-to-square"></i>
                                                     </button>
                                                     <button 
                                                         onClick={() => handleDeleteTransaction(t.id)} 
-                                                        className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                        className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                                                         title="Delete"
                                                     >
                                                         <i className="fa-solid fa-trash-can"></i>
                                                     </button>
+                                                    <button 
+                                                        onClick={() => setSelectedTransaction(t)}
+                                                        className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors cursor-pointer"
+                                                        title="View"
+                                                    >
+                                                        <i className="fa-regular fa-eye"></i>
+                                                    </button>
+                                                    
                                                 </div>
                                             </div>
 
@@ -482,6 +493,7 @@ function Dashboard() {
                             )}
 
                         </div>
+
                     </div>
 
                 </div>
@@ -490,11 +502,13 @@ function Dashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                     {/* Recent Activity Card (Direct JSX) */}
-                    <div className="bg-white rounded-xl shadow-xl p-6 border border-gray-100 h-full">
-                        <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <div className="bg-white rounded-xl shadow-xl p-8 border border-gray-100 h-full">
+                        
+                        <h3 className="flex items-center text-xl font-bold text-gray-600 mb-4">
                             <i className="fa-solid fa-clock-rotate-left text-indigo-500 mr-2"></i> Quick Activity
                         </h3>
                         <div className="space-y-4">
+
                             {/* CALCULATE LATEST TRANSACTION */}
                             {(() => {
                                 const latest = transactions[0];
@@ -507,10 +521,10 @@ function Dashboard() {
                                 return (
                                     <>
                                         {/* Latest Transaction */}
-                                        <div className="border-b pb-4 border-gray-100">
-                                            <p className="text-sm font-semibold text-gray-700 mb-1">Most Recent:</p>
+                                        <div className="border-b pb-4 border-gray-200">
+                                            <p className="text-md font-semibold text-gray-700 mb-1">Most Recent:</p>
                                             {latest ? (
-                                                <p className="text-lg font-medium text-gray-900 truncate">
+                                                <p className="text-md font-medium text-gray-900 truncate">
                                                     {latest.description} 
                                                     <span className={`ml-2 font-bold ${latest.type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
                                                         {formatCurrency(latest.amount)}
@@ -521,9 +535,9 @@ function Dashboard() {
                                         
                                         {/* Largest Transaction */}
                                         <div>
-                                            <p className="text-sm font-semibold text-gray-700 mb-1">Largest Transaction:</p>
+                                            <p className="text-md font-semibold text-gray-700 mb-1">Largest Transaction:</p>
                                             {largest && largest.amount ? (
-                                                <p className="text-lg font-medium text-gray-900 truncate">
+                                                <p className="text-md font-medium text-gray-900 truncate">
                                                     {largest.description} 
                                                     <span className={`ml-2 font-bold ${largest.type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
                                                         {formatCurrency(largest.amount)}
@@ -534,15 +548,17 @@ function Dashboard() {
                                     </>
                                 );
                             })()}
+
                         </div>
+                        
                     </div>
 
                     {/* Spending Health Card (Direct JSX) */}
-                    <div className="bg-white rounded-xl shadow-xl p-6 border border-gray-100 h-full">
-                        <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <div className="bg-white rounded-xl shadow-xl p-8 border border-gray-100 h-full">
+                        
+                        <h3 className="text-xl font-bold text-gray-700 mb-4 flex items-center">
                             <i className="fa-solid fa-gauge-high text-indigo-500 mr-2"></i> Spending Health
                         </h3>
-                        
                         {/* CALCULATE SPENDING RATIO */}
                         {(() => {
                             const { income, expense } = summary;
@@ -563,15 +579,24 @@ function Dashboard() {
                                         ></div>
                                     </div>
                                     
-                                    <p className={`font-semibold ${ratio < 80 ? 'text-green-700' : 'text-red-700'}`}>{gaugeMessage}</p>
+                                    <p className={`font-semibold text-[15px] ${ratio < 80 ? 'text-green-700' : 'text-red-700'}`}>{gaugeMessage}</p>
                                 </>
                             );
                         })()}
+
                     </div>
 
                 </div>
 
             </main>
+
+            {/* 3. RENDER THE MODAL AT THE BOTTOM */}
+            {selectedTransaction && (
+                <TransactionDetailModal 
+                    transaction={selectedTransaction} 
+                    onClose={() => setSelectedTransaction(null)} 
+                />
+            )}
 
             {/* ------------------ Footer ------------------ */}
             <Footer />

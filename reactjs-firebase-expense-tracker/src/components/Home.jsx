@@ -56,7 +56,7 @@ function Home() {
 
                     {/* 2. Application Visual / Logo (Right Side on Desktop) */}
                     <div className="w-full flex justify-center order-1 md:order-2">
-                        <div className="p-8 bg-white rounded-3xl shadow-2xl transform rotate-3 hover:rotate-0 transition duration-500">
+                        <div className="p-8 bg-white rounded-3xl shadow-2xl cursor-pointer transform rotate-3 hover:rotate-0 transition duration-500">
                             <img 
                                 src="./public/logo.png" 
                                 alt="Application Dashboard Mockup"
