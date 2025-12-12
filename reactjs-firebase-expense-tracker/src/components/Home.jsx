@@ -146,7 +146,7 @@ function Home() {
                             ${darkMode ? "bg-gray-800 shadow-black/30" : "bg-white"}`}>
                             
                             <img 
-                                src={`${darkMode ? './public/logo-2.png' : './public/logo.png'}`}
+                                src={`${darkMode ? './logo-2.png' : './logo.png'}`}
                                 alt="Application Logo"
                                 className={`w-32 h-32 md:w-50 md:h-50 object-contain rounded-full p-3.5 
                                     ${darkMode ? "bg-gray-700" : "bg-gray-200"}`}
