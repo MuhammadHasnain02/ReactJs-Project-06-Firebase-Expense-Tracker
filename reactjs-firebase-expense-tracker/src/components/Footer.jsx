@@ -1,8 +1,9 @@
 import React from 'react';
 
 const Footer = () => {
+    
     return (
-        <footer className="w-full bg-gray-900 text-gray-300 mt-auto border-t border-gray-800">
+        <footer className="w-full bg-gray-900 text-gray-300 mt-auto border-t border-gray-700">
             {/* Main Footer Content */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
@@ -61,6 +62,7 @@ const Footer = () => {
                             Have questions? Email us at <span className="text-indigo-400">support@expensetracker.com</span>
                         </p>
                     </div>
+
                 </div>
 
                 {/* Bottom Bar: Copyright */}
