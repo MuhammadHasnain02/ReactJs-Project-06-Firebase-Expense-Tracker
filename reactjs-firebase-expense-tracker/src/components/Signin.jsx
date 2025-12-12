@@ -209,30 +209,30 @@ function Signin() {
 
     return (
         <div className={`min-h-screen flex flex-col transition-all duration-300 
-                        ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
+                ${darkMode ? "bg-gray-900" : "bg-gray-50"}`}>
             
             <Navbar />
 
             <main className="flex-grow flex items-center justify-center p-4 pt-24 pb-10">
 
                 <div className={`w-full max-w-md p-8 sm:p-10 rounded-2xl shadow-2xl transition-all duration-300
-                                ${darkMode ? "bg-gray-800 shadow-black/40" : "bg-white shadow-indigo-100"}`}>
+                    ${darkMode ? "bg-gray-800 shadow-black/40" : "bg-white shadow-indigo-100"}`}>
 
                     {/* Header */}
                     <div className="flex flex-col items-center space-y-3">
                         
                         <div className={`p-3 rounded-full shadow-lg 
-                                        ${darkMode ? "bg-indigo-500 text-white" : "bg-indigo-600 text-white"}`}>
+                            ${darkMode ? "bg-indigo-500 text-white" : "bg-indigo-600 text-white"}`}>
                             <i className="fa-solid fa-lock text-2xl"></i>
                         </div>
 
                         <h2 className={`text-3xl font-extrabold 
-                                       ${darkMode ? "text-white" : "text-gray-900"}`}>
+                            ${darkMode ? "text-white" : "text-gray-900"}`}>
                             Welcome Back!
                         </h2>
 
                         <p className={`text-sm 
-                                      ${darkMode ? "text-gray-300" : "text-gray-500"}`}>
+                            ${darkMode ? "text-gray-300" : "text-gray-500"}`}>
                             Sign in to access your Expense Tracker dashboard.
                         </p>
                     </div>
@@ -296,7 +296,7 @@ function Signin() {
                             disabled={loading}
                             className={`w-full py-3 rounded-lg font-semibold text-lg transition-all 
                                       ${loading 
-                                          ? "bg-indigo-400 cursor-not-allowed"
+                                          ? "bg-indigo-400 cursor-not-allowed text-white"
                                           : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-md hover:scale-[1.01]"
                                       }`}
                         >

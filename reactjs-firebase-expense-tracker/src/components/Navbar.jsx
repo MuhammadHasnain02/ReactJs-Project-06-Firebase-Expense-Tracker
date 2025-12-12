@@ -69,11 +69,11 @@ const Navbar = () => {
                     className="flex items-center space-x-2 cursor-pointer"
                     onClick={() => navigation('/')}
                 >
-                    <div className={`p-1 rounded-full transition duration-300
+                    <div className={`p-1.5 rounded-full transition duration-300
                         ${darkMode ? "bg-gray-700" : "bg-indigo-100"}`}>
                         
                         <img
-                            src={`${darkMode ? './public/logo-2.png' : './public/logo.png'}`}
+                            src={`${darkMode ? './logo-2.png' : './logo.png'}`}
                             alt="Logo"
                             className="w-12 h-12 object-contain"
                         />
@@ -93,12 +93,12 @@ const Navbar = () => {
                         onClick={handleThemeToggle}
                         className={`flex justify-center items-center w-10 h-10 cursor-pointer transition-all duration-200 rounded-full shadow-md
                             ${darkMode
-                                ? "bg-gray-700 hover:bg-gray-600 shadow-black/40 rotate-0"
-                                : "bg-indigo-100 hover:bg-indigo-200 -rotate-10 hover:-rotate-20"
+                                ? "bg-gray-700 shadow-black/40 rotate-0 hover:-rotate-30"
+                                : "bg-indigo-100 -rotate-10 hover:-rotate-20"
                             }`}
                     >
                         {darkMode ? (
-                            <i className="fa-regular fa-sun text-yellow-400 text-[20px]"></i>
+                            <i className="fa-regular fa-sun text-indigo-400 text-[20px]"></i>
                         ) : (
                             <i className="fa-regular fa-moon text-indigo-700 text-[20px]"></i>
                         )}

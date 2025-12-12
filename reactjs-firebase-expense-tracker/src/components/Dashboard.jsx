@@ -775,14 +775,14 @@ function Dashboard() {
 
                 {/* Logo */}
                 <div 
-                    className="flex items-center space-x-2 cursor-pointer"
+                    className="flex items-center space-x-3 cursor-pointer"
                     onClick={() => navigation('/')}
                 >
                     <div className={`p-1 rounded-full 
                         ${darkMode ? "bg-gray-800" : "bg-indigo-100"}`}
                     >
                         <img 
-                            src={`${darkMode ? './public/logo-2.png' : './public/logo.png'}`}
+                            src={`${darkMode ? './logo-2.png' : './logo.png'}`}
                             alt="Logo"
                             className="w-12 h-12 object-contain"
                         />
@@ -809,113 +809,101 @@ function Dashboard() {
                     {/* ==== Theme Toggle ==== */}
                     <button
                         onClick={() => setDarkMode(!darkMode)}
-                        className={`flex justify-center items-center w-10 h-10 -rotate-10 hover:-rotate-20 
-                            transition-all duration-200 rounded-full shadow-md 
-                            ${darkMode 
-                                ? "bg-gray-700 shadow-gray-900" 
-                                : "bg-indigo-100 shadow-gray-300"
+                        className={`flex justify-center items-center w-10 h-10 cursor-pointer transition-all duration-200 rounded-full shadow-md 
+                            ${darkMode
+                                ? "bg-gray-700 shadow-black/40 rotate-0 hover:-rotate-30"
+                                : "bg-indigo-100 -rotate-10 hover:-rotate-20"
                             }`}
                     >
                         <i 
                             className={`text-[20px] transition-all duration-200 
                                 ${darkMode 
-                                    ? "fa-solid fa-sun text-yellow-400" 
+                                    ? "fa-solid fa-sun text-indigo-400" 
                                     : "fa-regular fa-moon text-indigo-700"
                                 }`}
                         ></i>
                     </button>
 
                     {/* ==== Profile Trigger ==== */}
-                    <div 
-                        onClick={() => setOpen(!open)}
-                        className="flex flex-col items-center cursor-pointer -space-y-2.5"
-                    >
-                        <i 
-                            className={`ri-account-circle-fill text-[32px] 
-                                ${darkMode ? "text-gray-200" : "text-indigo-700"}`}
-                        ></i>
+                    <div onClick={() => setOpen(!open)}
+                        className="flex flex-col items-center cursor-pointer -space-y-2.5">
+                        <i className={`ri-account-circle-fill text-[32px] 
+                            ${darkMode ? "text-gray-200" : "text-indigo-700"}`}></i>
 
-                        <p 
-                            className={`hidden md:block font-sans text-sm font-medium truncate max-w-[120px]
-                                ${darkMode ? "text-gray-300" : "text-gray-800"}`}
-                        >
+                        <p className={`hidden md:block font-sans text-sm font-medium truncate max-w-[120px]
+                            ${darkMode ? "text-gray-300" : "text-gray-800"}`}>
+
                             {currentUser.email.split("@")[0]}
+
                         </p>
                     </div>
 
                     {/* ==== DROPDOWN BOX ==== */}
-                    <div
-                        className={`absolute top-0 -right-5 mt-16 w-64 rounded-xl py-2 z-50 
-                            transition-all duration-200 border shadow-2xl
-                            ${open 
-                                ? "opacity-100 scale-100" 
-                                : "opacity-0 scale-95 pointer-events-none"
-                            }
-                            ${darkMode
-                                ? "bg-gray-900 border-gray-700 shadow-black"
-                                : "bg-white border-gray-200 shadow-gray-300"
-                            }`}
-                    >
+                    <div className={`absolute top-0 -right-5 mt-16 w-64 rounded-xl py-2 z-50 transition-all duration-200 border shadow-2xl
+                        ${open 
+                            ? "opacity-100 scale-100" 
+                            : "opacity-0 scale-95 pointer-events-none"
+                        }
+                        ${darkMode
+                            ? "bg-gray-900 border-gray-700 shadow-black"
+                            : "bg-white border-gray-200 shadow-gray-300"
+                        }`}>
 
                         {/* Top User Info */}
-                        <div 
-                            className={`flex items-center gap-3 px-4 py-3 border-b
-                                ${darkMode ? "border-gray-700" : "border-gray-300"}`}
-                        >
-                            <i 
-                                className={`ri-account-circle-fill text-4xl 
-                                    ${darkMode ? "text-gray-300" : "text-gray-700"}`}
-                            ></i>
+                        <div className={`flex items-center gap-3 px-4 py-3 border-b
+                            ${darkMode ? "border-gray-700" : "border-gray-300"}`}>
 
-                            <div>
-                                <p 
-                                    className={`font-semibold truncate
-                                        ${darkMode ? "text-gray-200" : "text-gray-800"}`}
-                                >
+                            <i className={`ri-account-circle-fill text-4xl 
+                                ${darkMode ? "text-gray-300" : "text-gray-700"}`}></i>
+
+                            <div className='font-sans'>
+                                <p className={`font-semibold truncate font-sans
+                                    ${darkMode ? "text-gray-200" : "text-gray-800"}`}>
                                     {currentUser.email.split("@")[0]}
                                 </p>
 
-                                <p 
-                                    className={`text-sm truncate max-w-[150px]
-                                        ${darkMode ? "text-gray-400" : "text-gray-500"}`}
-                                >
+                                <p className={`text-sm font-medium truncate max-w-[150px]
+                                    ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
                                     {currentUser.email}
                                 </p>
                             </div>
+
                         </div>
 
                         {/* Settings Items */}
-                        <div className={`${darkMode ? "border-gray-700" : "border-gray-300"} border-b`}>
+                        <div className={`${darkMode ? "border-gray-700" : "border-gray-300"} border-b py-4`}>
                             {[
+
                                 ["Profile", "ri-user-line"],
                                 ["Account", "ri-user-settings-line"],
                                 ["Appearance", "ri-brush-line"],
                                 ["Settings", "ri-settings-3-line"],
+
                             ].map(([name, icon]) => (
-                                <button
-                                    key={name}
-                                    className={`flex items-center gap-2 px-4 py-2 w-full text-left 
+
+                                <button key={name}
+                                    className={`flex items-center gap-2 px-5 py-2 w-full text-left cursor-pointer
                                         transition-colors duration-150
                                         ${darkMode 
                                             ? "text-gray-300 hover:bg-gray-800" 
                                             : "text-gray-700 hover:bg-gray-100"
-                                        }`}
-                                >
-                                    <i className={icon}></i> {name}
+                                        }`}>
+                                    <i className={icon}></i> <span className='tracking-tight font-medium'>{name}</span>
                                 </button>
+
                             ))}
                         </div>
 
                         {/* Logout */}
                         <button
                             onClick={handleLogout}
-                            className={`flex items-center gap-2 px-4 py-2 w-full text-left transition
+                            className={`flex items-center gap-2 px-4 py-2 w-full text-left transition tracking-tight font-medium cursor-pointer
                                 ${darkMode 
                                     ? "text-red-400 hover:bg-red-900/20" 
                                     : "text-red-600 hover:bg-red-50"
                                 }`}
                         >
-                            <i className="ri-logout-box-r-line"></i> Sign out
+                            <i className="ri-logout-box-r-line text-[18px]"></i> Sign out
                         </button>
                     </div>
                 </div>
@@ -929,10 +917,10 @@ function Dashboard() {
 
                     {/* Income Card */}
                     <div className={`p-5 rounded-xl shadow-md flex items-center gap-4 cursor-pointer duration-200
-                                    ${darkMode ? "bg-gray-900 border border-gray-700 hover:shadow-lg hover:bg-gray-800" 
-                                                : "bg-white border border-gray-200 hover:shadow-lg hover:bg-gray-50"}`}>
+                        ${darkMode ? "bg-gray-900 border border-gray-700 hover:shadow-lg hover:bg-[#141d2d]" 
+                                    : "bg-white border border-gray-200 hover:shadow-lg hover:bg-gray-50"}`}>
                         <div className={`${darkMode ? "px-4 py-3 rounded-full bg-green-900/20" : "px-4 py-3 rounded-full bg-green-100"}`}>
-                        <i className="ri-arrow-up-circle-line text-2xl text-green-600"></i>
+                            <i className="ri-arrow-up-circle-line text-2xl text-green-600"></i>
                         </div>
                         <div>
                         <p className={`${darkMode ? "text-gray-300" : "text-gray-700"} font-semibold font-sans`}>Total Income</p>
@@ -945,7 +933,7 @@ function Dashboard() {
 
                     {/* Expense Card */}
                     <div className={`p-5 rounded-xl shadow-md flex items-center gap-4 cursor-pointer duration-200
-                                    ${darkMode ? "bg-gray-900 border border-gray-700 hover:shadow-lg hover:bg-gray-800" 
+                                    ${darkMode ? "bg-gray-900 border border-gray-700 hover:shadow-lg hover:bg-[#141d2d]" 
                                                 : "bg-white border border-gray-200 hover:shadow-lg hover:bg-gray-50"}`}>
                         <div className={`${darkMode ? "px-4 py-3 rounded-full bg-red-900/20" : "px-4 py-3 rounded-full bg-red-100"}`}>
                         <i className="ri-arrow-down-circle-line text-2xl text-red-600"></i>
@@ -961,7 +949,7 @@ function Dashboard() {
 
                     {/* Balance Card */}
                     <div className={`p-5 rounded-xl shadow-md flex items-center gap-4 cursor-pointer duration-200
-                                    ${darkMode ? "bg-gray-900 border border-gray-700 hover:shadow-lg hover:bg-gray-800" 
+                                    ${darkMode ? "bg-gray-900 border border-gray-700 hover:shadow-lg hover:bg-[#141d2d]" 
                                                 : "bg-white border border-gray-200 hover:shadow-lg hover:bg-gray-50"}`}>
                         <div className={`${darkMode ? "px-4 py-3 rounded-full bg-indigo-900/20" : "px-4 py-3 rounded-full bg-indigo-100"}`}>
                         <i className="ri-wallet-3-line text-2xl text-indigo-600"></i>
@@ -982,35 +970,35 @@ function Dashboard() {
 
                     {/* -------- FORM (LEFT SIDE) -------- */}
                     <div className={`h-100 rounded-xl shadow-xl p-6 sm:p-8
-                                    ${darkMode ? 'bg-gray-900 border border-gray-700' : 'bg-white border border-gray-200'}`}>
+                        ${darkMode ? 'bg-gray-900 border border-gray-700' : 'bg-white border border-gray-200'}`}>
 
                         {/* header */}
                         <div className={`flex items-center justify-between mb-3 pb-4 border-b
-                                        ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+                            ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
 
-                        {/* Left Side: Dynamic Icon & Title */}
-                        <div className="flex items-center gap-4">
-                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-sm transition-all duration-300
-                                            ${darkMode ? 'bg-indigo-900/30 text-indigo-400' : 'bg-indigo-100 text-indigo-600'}`}>
-                            <i className={`fa-solid ${editId ? 'fa-pen-to-square' : 'fa-layer-group'} text-lg`}></i>
+                            {/* Left Side: Dynamic Icon & Title */}
+                            <div className="flex items-center gap-4">
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-sm transition-all duration-300
+                                                ${darkMode ? 'bg-indigo-900/30 text-indigo-400' : 'bg-indigo-100 text-indigo-600'}`}>
+                                <i className={`fa-solid ${editId ? 'fa-pen-to-square' : 'fa-layer-group'} text-lg`}></i>
+                                </div>
+                                <h3 className={`text-[21px] font-bold tracking-tight
+                                                ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+                                {editId ? "Edit" : "New"} <span className={`text-indigo-600 ${darkMode ? 'dark:text-indigo-400' : ''}`}>Transaction</span>
+                                </h3>
                             </div>
-                            <h3 className={`text-[21px] font-bold tracking-tight
-                                            ${darkMode ? 'text-white' : 'text-gray-800'}`}>
-                            {editId ? "Edit" : "New"} <span className={`text-indigo-600 ${darkMode ? 'dark:text-indigo-400' : ''}`}>Transaction</span>
-                            </h3>
-                        </div>
 
-                        {/* Right Side: Status Badge */}
-                        <span className={`hidden sm:inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase border
-                                        ${editId 
-                                            ? (darkMode 
-                                            ? 'bg-amber-900/20 text-amber-300 border-amber-800' 
-                                            : 'bg-amber-50 text-amber-700 border-amber-200') 
-                                            : (darkMode 
-                                            ? 'bg-indigo-900/20 text-indigo-300 border-indigo-800' 
-                                            : 'bg-indigo-50 text-indigo-700 border-indigo-200')}`}>
-                            {editId ? "Update Mode" : "Create Mode"}
-                        </span>
+                            {/* Right Side: Status Badge */}
+                            <span className={`hidden sm:inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase border
+                                            ${editId 
+                                                ? (darkMode 
+                                                ? 'bg-amber-900/20 text-amber-300 border-amber-800' 
+                                                : 'bg-amber-50 text-amber-700 border-amber-200') 
+                                                : (darkMode 
+                                                ? 'bg-indigo-900/20 text-indigo-300 border-indigo-800' 
+                                                : 'bg-indigo-50 text-indigo-700 border-indigo-200')}`}>
+                                {editId ? "Update Mode" : "Create Mode"}
+                            </span>
 
                         </div>
 
@@ -1092,98 +1080,98 @@ function Dashboard() {
                         <div className={`p-4 sm:p-6 lg:py-7 overflow-y-auto max-h-[400px] custom-scrollbar
                                         ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
 
-                        {transactions.length > 0 ? (
-                            <div className="space-y-4">
-                            {transactions.map((t) => {
-                                const date = t.createdAt?.toDate 
-                                    ? t.createdAt.toDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) 
-                                    : new Date(t.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                            {transactions.length > 0 ? (
+                                <div className="space-y-4">
+                                {transactions.map((t) => {
+                                    const date = t.createdAt?.toDate 
+                                        ? t.createdAt.toDate().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) 
+                                        : new Date(t.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
-                                return (
-                                <div key={t.id} 
-                                    className={`group flex items-center justify-between p-4 rounded-xl transition-all duration-300 cursor-pointer
-                                                ${darkMode ? 'bg-gray-800 border border-gray-700 hover:bg-gray-700 hover:shadow-md' 
-                                                        : 'bg-gray-50 border border-gray-200 hover:bg-[#f8f9f6] hover:shadow-md'}`}>
+                                    return (
+                                    <div key={t.id} 
+                                        className={`group flex items-center justify-between p-4 rounded-xl transition-all duration-300 cursor-pointer
+                                            ${darkMode ? 'bg-gray-800 border border-gray-700 hover:bg-[#263041] hover:shadow-md' 
+                                                    : 'bg-gray-50 border border-gray-200 hover:bg-[#f8f9f6] hover:shadow-md'}`}>
 
-                                    {/* Left Side: Icon & Details */}
-                                    <div className="flex items-center gap-4 overflow-hidden">
-                                    <div className={`w-12 h-12 flex items-center justify-center rounded-full
-                                                    ${t.type === "income" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"} 
-                                                    ${darkMode ? (t.type === "income" ? "bg-green-900/20 text-green-500" : "bg-red-900/20 text-red-500") : ''}`}>
-                                        <i className={`fa-solid ${t.type === "income" ? "fa-arrow-up" : "fa-arrow-down"} text-lg`}></i>
-                                    </div>
+                                        {/* Left Side: Icon & Details */}
+                                        <div className="flex items-center gap-4 overflow-hidden">
+                                        <div className={`w-12 h-12 flex items-center justify-center rounded-full
+                                                        ${t.type === "income" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"} 
+                                                        ${darkMode ? (t.type === "income" ? "bg-green-900/20 text-green-500" : "bg-red-900/20 text-red-500") : ''}`}>
+                                            <i className={`fa-solid ${t.type === "income" ? "fa-arrow-up" : "fa-arrow-down"} text-lg`}></i>
+                                        </div>
 
-                                    <div className="min-w-0 space-y-1.5">
-                                        <div>
-                                        <p className={`font-bold text-[17px] truncate text-base
-                                                        ${darkMode ? 'text-gray-200' : 'text-gray-600'}`}>
-                                            {t.description}
+                                        <div className="min-w-0 space-y-1.5">
+                                            <div>
+                                            <p className={`font-bold text-[17px] truncate text-base
+                                                            ${darkMode ? 'text-gray-200' : 'text-gray-600'}`}>
+                                                {t.description}
+                                            </p>
+                                            </div>
+                                            <div className={`flex items-center gap-2 text-xs mt-1
+                                                            ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                                            <span className="capitalize px-2 py-1 rounded text-[11px] font-medium
+                                                            bg-gray-200 dark:bg-gray-700">
+                                                {t.type}
+                                            </span>
+                                            <span className="flex items-center gap-1">
+                                                <i className="fa-regular fa-calendar"></i> {date}
+                                            </span>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        {/* Right Side: Amount & Actions */}
+                                        <div className="flex flex-col items-end gap-2 ml-4">
+                                        <p className={`text-lg font-bold tracking-tight
+                                                        ${t.type === "income" ? "text-green-600" : "text-red-600"}
+                                                        ${darkMode ? 'text-gray-200' : ''}`}>
+                                            {t.type === "income" ? "+ " : "- "}{formatCurrency(t.amount)}
                                         </p>
+
+                                        {/* Action Buttons */}
+                                        <div className="flex items-center gap-1">
+                                            <button 
+                                            onClick={() => editTransaction(t)} 
+                                            className={`p-1.5 rounded-lg transition-colors cursor-pointer
+                                                        ${darkMode ? 'text-gray-400 hover:text-indigo-300 hover:bg-indigo-900/20' 
+                                                                    : 'text-gray-400 hover:text-indigo-600 hover:bg-indigo-50'}`}
+                                            title="Edit">
+                                            <i className="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button 
+                                            onClick={() => handleDeleteTransaction(t.id)} 
+                                            className={`p-1.5 rounded-lg transition-colors cursor-pointer
+                                                        ${darkMode ? 'text-gray-400 hover:text-red-400 hover:bg-red-900/20' 
+                                                                    : 'text-gray-400 hover:text-red-600 hover:bg-red-50'}`}
+                                            title="Delete">
+                                            <i className="fa-solid fa-trash-can"></i>
+                                            </button>
+                                            <button 
+                                            onClick={() => setSelectedTransaction(t)}
+                                            className={`p-1.5 rounded-lg transition-colors cursor-pointer
+                                                        ${darkMode ? 'text-gray-400 hover:text-indigo-300 hover:bg-indigo-900/20' 
+                                                                    : 'text-gray-400 hover:text-indigo-600 hover:bg-indigo-50'}`}
+                                            title="View">
+                                            <i className="fa-regular fa-eye"></i>
+                                            </button>
                                         </div>
-                                        <div className={`flex items-center gap-2 text-xs mt-1
-                                                        ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                                        <span className="capitalize px-2 py-1 rounded text-[11px] font-medium
-                                                        bg-gray-200 dark:bg-gray-700">
-                                            {t.type}
-                                        </span>
-                                        <span className="flex items-center gap-1">
-                                            <i className="fa-regular fa-calendar"></i> {date}
-                                        </span>
                                         </div>
-                                    </div>
-                                    </div>
 
-                                    {/* Right Side: Amount & Actions */}
-                                    <div className="flex flex-col items-end gap-2 ml-4">
-                                    <p className={`text-lg font-bold tracking-tight
-                                                    ${t.type === "income" ? "text-green-600" : "text-red-600"}
-                                                    ${darkMode ? 'text-gray-200' : ''}`}>
-                                        {t.type === "income" ? "+ " : "- "}{formatCurrency(t.amount)}
-                                    </p>
-
-                                    {/* Action Buttons */}
-                                    <div className="flex items-center gap-1">
-                                        <button 
-                                        onClick={() => editTransaction(t)} 
-                                        className={`p-1.5 rounded-lg transition-colors cursor-pointer
-                                                    ${darkMode ? 'text-gray-400 hover:text-indigo-300 hover:bg-indigo-900/20' 
-                                                                : 'text-gray-400 hover:text-indigo-600 hover:bg-indigo-50'}`}
-                                        title="Edit">
-                                        <i className="fa-solid fa-pen-to-square"></i>
-                                        </button>
-                                        <button 
-                                        onClick={() => handleDeleteTransaction(t.id)} 
-                                        className={`p-1.5 rounded-lg transition-colors cursor-pointer
-                                                    ${darkMode ? 'text-gray-400 hover:text-red-400 hover:bg-red-900/20' 
-                                                                : 'text-gray-400 hover:text-red-600 hover:bg-red-50'}`}
-                                        title="Delete">
-                                        <i className="fa-solid fa-trash-can"></i>
-                                        </button>
-                                        <button 
-                                        onClick={() => setSelectedTransaction(t)}
-                                        className={`p-1.5 rounded-lg transition-colors cursor-pointer
-                                                    ${darkMode ? 'text-gray-400 hover:text-indigo-300 hover:bg-indigo-900/20' 
-                                                                : 'text-gray-400 hover:text-indigo-600 hover:bg-indigo-50'}`}
-                                        title="View">
-                                        <i className="fa-regular fa-eye"></i>
-                                        </button>
                                     </div>
-                                    </div>
-
+                                    );
+                                })}
                                 </div>
-                                );
-                            })}
-                            </div>
-                        ) : (
-                            <div className={`flex flex-col items-center justify-center py-12 px-4 text-center border-2 border-dashed rounded-xl
-                                            ${darkMode ? 'bg-gray-800 border-gray-700 text-gray-200' : 'bg-gray-50/50 border-gray-200 text-gray-800'}`}>
-                            <div className={`p-4 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
-                                <i className="fa-solid fa-clipboard-list text-2xl text-gray-400"></i>
-                            </div>
-                            <p className="font-medium mt-2">No transactions found</p>
-                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Add a new transaction to see history.</p>
-                            </div>
-                        )}
+                            ) : (
+                                <div className={`flex flex-col items-center justify-center py-12 px-4 text-center border-2 border-dashed rounded-xl
+                                                ${darkMode ? 'bg-gray-800 border-gray-700 text-gray-200' : 'bg-gray-50/50 border-gray-200 text-gray-800'}`}>
+                                <div className={`p-4 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                                    <i className="fa-solid fa-clipboard-list text-2xl text-gray-400"></i>
+                                </div>
+                                <p className="font-medium mt-2">No transactions found</p>
+                                <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Add a new transaction to see history.</p>
+                                </div>
+                            )}
 
                         </div>
 
